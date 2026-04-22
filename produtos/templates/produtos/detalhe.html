@@ -1,0 +1,34 @@
+{% load l10n %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ produto.nome }} - Detalhes</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; padding: 40px; }
+        .container { max-width: 600px; background: #1e1e1e; padding: 30px; border-radius: 10px; border-top: 5px solid #e63946; }
+        .voltar { display: inline-block; margin-top: 20px; color: #aaa; text-decoration: none; }
+        .preco { color: #4caf50; font-size: 1.5em; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ produto.nome }}</h1>
+        <p><strong>Descrição:</strong> {{ produto.descricao }}</p>
+        <p><strong>Quantidade em estoque:</strong> {{ produto.quantidade }} unidades</p>
+        <p class="preco">R$ {{ produto.preco|localize }}</p>
+        
+        <a href="{% url 'lista_produtos' %}" class="voltar">← Voltar para a lista</a>
+        <hr>
+<a href="{% url 'excluir_produto' produto.pk %}" 
+   style="color: #ff4d4d; text-decoration: none; font-weight: bold; border: 1px solid #ff4d4d; padding: 10px; border-radius: 5px;">
+   🗑️ Excluir Produto
+</a>
+<a href="{% url 'editar_produto' produto.pk %}" 
+   style="color: #3498db; text-decoration: none; font-weight: bold; border: 1px solid #3498db; padding: 10px; border-radius: 5px; margin-right: 10px;">
+   ✏️ Editar Produto
+</a>
+    </div>
+</body>
+</html>

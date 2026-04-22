@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar Exclusão</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; padding: 40px; text-align: center; }
+        .container { max-width: 500px; margin: 0 auto; background: #1e1e1e; padding: 30px; border-radius: 10px; }
+        .btn-confirmar { background: #e63946; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        .btn-cancelar { color: #aaa; text-decoration: none; margin-left: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tem certeza?</h1>
+        <p>Você está prestes a excluir o produto: <strong>{{ produto.nome }}</strong></p>
+        <p>Esta ação não pode ser desfeita.</p>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-confirmar">Sim, excluir definitivamente</button>
+            <a href="{% url 'detalhe_produto' produto.pk %}" class="btn-cancelar">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% load l10n %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Estoque Kenner</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; padding: 20px; }
+        .card-container { display: flex; gap: 20px; flex-wrap: wrap; }
+        .card { 
+            background: #1e1e1e; border-left: 5px solid #e63946; 
+            padding: 15px; width: 220px; border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+        .preco { color: #4caf50; font-weight: bold; font-size: 1.2em; }
+        h1 { border-bottom: 2px solid #333; padding-bottom: 10px; color: #e63946; }
+        .qtd { color: #aaa; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h1>📦 Controle de Estoque - Kenner</h1>
+    <form method="GET" action="{% url 'lista_produtos' %}" style="margin-bottom: 30px;">
+    <input type="text" name="busca" placeholder="Buscar produto..." 
+           style="padding: 10px; width: 300px; border-radius: 5px; border: none;">
+    <button type="submit" 
+            style="padding: 10px 20px; background: #e63946; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        Pesquisar
+    </button>
+    <a href="{% url 'lista_produtos' %}" style="color: #aaa; margin-left: 10px; text-decoration: none;">Limpar</a>
+</form>
+   <div class="card-container">
+    {% for produto in produtos %}
+    <div class="card">
+        <h3>
+            <a href="{% url 'detalhe_produto' produto.pk %}" style="color: white; text-decoration: none;">
+                {{ produto.nome }}
+            </a>
+        </h3>
+        
+        <p>{{ produto.descricao }}</p>
+        <p class="qtd">Quantidade: <strong>{{ produto.quantidade }}</strong></p>
+        <p class="preco">R$ {{ produto.preco|floatformat:2|intcomma }}</p>
+    </div>
+    {% empty %}
+    <p>O estoque está vazio.</p>
+    {% endfor %}
+</div>
+</body>
+</html>
