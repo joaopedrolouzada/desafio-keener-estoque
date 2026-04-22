@@ -12,4 +12,6 @@ from .views import CadastroView
 urlpatterns = [
     #  outras urls (lista, editar, etc) ...
     path('cadastro/', CadastroView.as_view(), name='cadastro'),
+    path('movimentacoes/', views.lista_movimentacoes, name='lista_movimentacoes'),
+    path('cadastrar_movimentacao/', views.cadastrar_movimentacao, name='cadastrar_movimentacao'),
 ]

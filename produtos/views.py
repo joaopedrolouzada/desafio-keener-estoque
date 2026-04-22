@@ -13,6 +13,25 @@ def lista_produtos(request):
         produtos = Produto.objects.all()
         
     return render(request, 'produtos/lista.html', {'produtos': produtos})
+
+from django.shortcuts import render, get_object_or_404 
+from .models import Produto, MovimentacaoEstoque
+
+def lista_movimentacoes(request):
+    movimentacoes = MovimentacaoEstoque.objects.all()
+    return render(request, 'produtos/lista_movimentacoes.html', {'movimentacoes': movimentacoes})
+
+def cadastrar_movimentacao(request):
+    if request.method == 'POST':
+        produto_id = request.POST.get('produto')
+        tipo = request.POST.get('tipo')
+        quantidade = request.POST.get('quantidade')
+        produto = Produto.objects.get(id=produto_id)
+        movimentacao = MovimentacaoEstoque(produto=produto, tipo=tipo, quantidade=quantidade)
+        movimentacao.save()
+        return redirect('lista_movimentacoes')
+    produtos = Produto.objects.all()
+    return render(request, 'produtos/cadastrar_movimentacao.html', {'produtos': produtos})
 from django.shortcuts import render, get_object_or_404 
 from .models import Produto
 
