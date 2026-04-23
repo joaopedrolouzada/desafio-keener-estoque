@@ -1,70 +1,40 @@
-from django.shortcuts import render
-from .models import Produto
-
-def lista_produtos(request):
-    # Pega o que o usuário digitou no campo chamado 'busca'
-    nome_a_buscar = request.GET.get('busca')
-    
-    if nome_a_buscar:
-        
-        produtos = Produto.objects.filter(nome__icontains=nome_a_buscar)
-    else:
-
-        produtos = Produto.objects.all()
-        
-    return render(request, 'produtos/lista.html', {'produtos': produtos})
-
-from django.shortcuts import render, get_object_or_404 
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Produto, MovimentacaoEstoque
 
-def lista_movimentacoes(request):
-    movimentacoes = MovimentacaoEstoque.objects.all()
-    return render(request, 'produtos/lista_movimentacoes.html', {'movimentacoes': movimentacoes})
-
-def cadastrar_movimentacao(request):
-    if request.method == 'POST':
-        produto_id = request.POST.get('produto')
-        tipo = request.POST.get('tipo')
-        quantidade = request.POST.get('quantidade')
-        produto = Produto.objects.get(id=produto_id)
-        movimentacao = MovimentacaoEstoque(produto=produto, tipo=tipo, quantidade=quantidade)
-        movimentacao.save()
-        return redirect('lista_movimentacoes')
+def lista_produtos(request):
     produtos = Produto.objects.all()
-    return render(request, 'produtos/cadastrar_movimentacao.html', {'produtos': produtos})
-from django.shortcuts import render, get_object_or_404 
-from .models import Produto
+    return render(request, 'produtos/lista.html', {'produtos': produtos})
 
-# ... (mantem a função lista_produtos aqui)
-
-def detalhe_produto(request, pk):
-    # Busca o produto pela Chave Primária (ID). Se não existir, mostra erro 404.
-    produto = get_object_or_404(Produto, pk=pk)
-    return render(request, 'produtos/detalhe.html', {'produto': produto})
-from django.shortcuts import render, get_object_or_404, redirect 
-
-def excluir_produto(request, pk):
-    produto = get_object_or_404(Produto, pk=pk)
+def cadastrar_produto(request):
     if request.method == 'POST':
-        produto.delete()
+        Produto.objects.create(
+            nome=request.POST.get('nome'),
+            descricao=request.POST.get('descricao'),
+            quantidade=int(request.POST.get('quantidade')),
+            preco=request.POST.get('preco').replace(',', '.')
+        )
         return redirect('lista_produtos')
-    return render(request, 'produtos/confirmar_exclusao.html', {'produto': produto})
+    return render(request, 'produtos/cadastrar_produto.html')
+
 def editar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
     if request.method == 'POST':
-        #  dados novos do formulário
         produto.nome = request.POST.get('nome')
         produto.descricao = request.POST.get('descricao')
-        produto.quantidade = request.POST.get('quantidade')
-        produto.preco = request.POST.get('preco').replace(',', '.') # Garante que salve com ponto
+        produto.quantidade = int(request.POST.get('quantidade'))
+        produto.preco = request.POST.get('preco').replace(',', '.')
         produto.save()
-        return redirect('detalhe_produto', pk=produto.pk)
+        return redirect('lista_produtos')
     return render(request, 'produtos/editar_produto.html', {'produto': produto})
-from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
-from django.views import generic
 
-class CadastroView(generic.CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'registration/cadastro.html'
+def cadastrar_movimentacao(request):
+    if request.method == 'POST':
+        produto = get_object_or_404(Produto, id=request.POST.get('produto'))
+        MovimentacaoEstoque.objects.create(
+            produto=produto,
+            tipo=request.POST.get('tipo'),
+            quantidade=int(request.POST.get('quantidade'))
+        )
+        return redirect('lista_produtos')
+    produtos = Produto.objects.all()
+    return render(request, 'produtos/cadastrar_movimentacao.html', {'produtos': produtos})
