@@ -2,7 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Produto, MovimentacaoEstoque
 
 def lista_produtos(request):
-    produtos = Produto.objects.all()
+    busca = request.GET.get('busca')
+    if busca:
+        produtos = Produto.objects.filter(nome__icontains=busca)
+    else:
+        produtos = Produto.objects.all()
     return render(request, 'produtos/lista.html', {'produtos': produtos})
 
 def cadastrar_produto(request):
@@ -27,6 +31,10 @@ def editar_produto(request, pk):
         return redirect('lista_produtos')
     return render(request, 'produtos/editar_produto.html', {'produto': produto})
 
+def detalhe_produto(request, pk):
+    produto = get_object_or_404(Produto, pk=pk)
+    return render(request, 'produtos/detalhe.html', {'produto': produto})
+
 def cadastrar_movimentacao(request):
     if request.method == 'POST':
         produto = get_object_or_404(Produto, id=request.POST.get('produto'))
@@ -38,3 +46,10 @@ def cadastrar_movimentacao(request):
         return redirect('lista_produtos')
     produtos = Produto.objects.all()
     return render(request, 'produtos/cadastrar_movimentacao.html', {'produtos': produtos})
+
+def excluir_produto(request, pk):
+    produto = get_object_or_404(Produto, pk=pk)
+    if request.method == 'POST':
+        produto.delete()
+        return redirect('lista_produtos')
+    return render(request, 'produtos/confirmar_exclusao.html', {'produto': produto})

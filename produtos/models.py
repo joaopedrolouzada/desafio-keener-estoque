@@ -20,6 +20,8 @@ class MovimentacaoEstoque(models.Model):
         if self.tipo == 'entrada':
             self.produto.quantidade += self.quantidade
         else:
+            if self.produto.quantidade - self.quantidade < 0:
+                raise ValueError("Quantidade insuficiente em estoque")
             self.produto.quantidade -= self.quantidade
         self.produto.save()
         super().save(*args, **kwargs)
