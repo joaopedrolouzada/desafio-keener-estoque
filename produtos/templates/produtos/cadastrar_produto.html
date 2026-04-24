@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Produto - Keener</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; }
+        .card { background-color: #1e1e1e; padding: 30px; border-radius: 8px; width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #333; background: #fff; box-sizing: border-box; color: #000; }
+        button { width: 100%; padding: 12px; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        button:hover { background-color: #45a049; }
+        a { color: #aaa; text-decoration: none; display: block; text-align: center; margin-top: 15px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Novo Produto</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="nome" placeholder="Nome do Produto" required>
+            <textarea name="descricao" placeholder="Descrição" rows="3"></textarea>
+            <input type="number" name="quantidade" placeholder="Quantidade Inicial" required>
+            <input type="text" name="preco" placeholder="Preço (Ex: 150.00)" required>
+            <button type="submit">Salvar Produto</button>
+            <a href="{% url 'lista_produtos' %}">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -116,5 +116,5 @@ import os
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-LOGIN_REDIRECT_URL = 'lista_produtos' # Vai para a lista após logar
-LOGOUT_REDIRECT_URL = 'login'         # Vai para o login após sair
+LOGIN_REDIRECT_URL = 'lista_produtos' # OBS: Vai para a lista após logar
+LOGOUT_REDIRECT_URL = 'login'         # OBS: Vai para o login após sair

@@ -1,0 +1,23 @@
+<h2>Histórico de Movimentações</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Produto</th>
+            <th>Tipo</th>
+            <th>Quantidade</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in movimentacoes %}
+        <tr>
+            <td>{{ m.data|date:"d/m/Y H:i" }}</td>
+            <td>{{ m.produto.nome }}</td>
+            <td>{{ m.get_tipo_display }}</td>
+            <td>{{ m.quantidade }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<a href="{% url 'lista_produtos' %}">Voltar para a Lista de Produtos</a>

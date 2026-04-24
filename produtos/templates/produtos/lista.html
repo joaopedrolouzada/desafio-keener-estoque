@@ -3,8 +3,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <nav>
+    <a href="{% url 'cadastrar_produto' %}" class="btn">Novo Produto</a> |
+    <a href="{% url 'cadastrar_movimentacao' %}" class="btn">Registrar Movimentação</a> |
+    <a href="{% url 'lista_movimentacoes' %}" class="btn">Ver Histórico</a>
+</nav>
     <meta charset="UTF-8">
-    <title>Estoque Kenner</title>
+    <title>Estoque Keener</title>
     <style>
         body { font-family: sans-serif; background: #121212; color: white; padding: 20px; }
         .card-container { display: flex; gap: 20px; flex-wrap: wrap; }
@@ -19,7 +24,7 @@
     </style>
 </head>
 <body>
-    <h1>📦 Controle de Estoque - Kenner</h1>
+    <h1>📦 Controle de Estoque - Keener</h1>
     <form method="GET" action="{% url 'lista_produtos' %}" style="margin-bottom: 30px;">
     <input type="text" name="busca" placeholder="Buscar produto..." 
            style="padding: 10px; width: 300px; border-radius: 5px; border: none;">
@@ -29,6 +34,13 @@
     </button>
     <a href="{% url 'lista_produtos' %}" style="color: #aaa; margin-left: 10px; text-decoration: none;">Limpar</a>
 </form>
+<div style="background: #f4f4f4; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+    <strong>Menu Keener Estoque:</strong> 
+    <a href="{% url 'lista_produtos' %}">📦 Lista de Produtos</a> | 
+    <a href="{% url 'cadastrar_produto' %}">➕ Novo Produto</a> | 
+    <a href="{% url 'cadastrar_movimentacao' %}">🔄 Registrar Entrada/Saída</a> | 
+    <a href="{% url 'lista_movimentacoes' %}">📜 Ver Histórico</a>
+</div>
    <div class="card-container">
     {% for produto in produtos %}
     <div class="card">

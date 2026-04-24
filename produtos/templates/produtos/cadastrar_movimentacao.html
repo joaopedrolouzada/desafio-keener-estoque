@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Movimentar Estoque - Keener</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; }
+        .card { background-color: #1e1e1e; padding: 30px; border-radius: 8px; width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        select, input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #333; background: #fff; box-sizing: border-box; color: #000; }
+        button { width: 100%; padding: 12px; background-color: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        button:hover { background-color: #1976D2; }
+        a { color: #aaa; text-decoration: none; display: block; text-align: center; margin-top: 15px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Registrar Movimentação</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Produto:</label>
+            <select name="produto" required>
+                {% for p in produtos %}
+                    <option value="{{ p.id }}">{{ p.nome }} (Saldo: {{ p.quantidade }})</option>
+                {% endfor %}
+            </select>
+
+            <label>Tipo:</label>
+            <select name="tipo">
+                <option value="entrada">Entrada (+)</option>
+                <option value="saida">Saída (-)</option>
+            </select>
+
+            <label>Quantidade:</label>
+            <input type="number" name="quantidade" min="1" required>
+
+            <button type="submit">Confirmar Registro</button>
+            <a href="{% url 'lista_produtos' %}">Voltar para Estoque</a>
+        </form>
+    </div>
+</body>
+</html>

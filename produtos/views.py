@@ -53,3 +53,7 @@ def excluir_produto(request, pk):
         produto.delete()
         return redirect('lista_produtos')
     return render(request, 'produtos/confirmar_exclusao.html', {'produto': produto})
+def lista_movimentacoes(request):
+   
+    movimentacoes = MovimentacaoEstoque.objects.all().order_by('-data')
+    return render(request, 'produtos/lista_movimentacoes.html', {'movimentacoes': movimentacoes})
