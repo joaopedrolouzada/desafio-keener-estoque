@@ -10,7 +10,7 @@ class Produto(models.Model):
         return self.nome
 
 from django.db import models
-from django.core.exceptions import ValidationError
+from django.core.exceptions import 
 
 class Produto(models.Model):
     nome = models.CharField(max_length=100)
