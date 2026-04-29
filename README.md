@@ -8,8 +8,8 @@ A robust backend solution for inventory control, focusing on performance and sca
 * [cite_start]**Environment:** Python Decouple (for .env management) and Git for version control 
 
 ## 🛠️ Key Features
-* **Full CRUD:** Create, Read, Update, and Delete products and categories.
-* [cite_start]**OOP Architecture:** Extensive use of Django Models inheritance and Meta classes for clean code.
+* [cite_start]**Full CRUD:** Create, Read, Update, and Delete products and categories[cite: 2, 4].
+* [cite_start]**OOP Architecture:** Extensive use of Django Models inheritance and Meta classes for clean code[cite: 4].
 * **Database Migrations:** Structured schema evolution via Django Migrations.
 
 ## ⚙️ How to Run
