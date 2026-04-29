@@ -3,13 +3,13 @@
 A robust backend solution for inventory control, focusing on performance and scalability. This project was developed to solve real-world stock logic challenges using the Django framework.
 
 ## 🚀 Technologies Used
-* [cite_start]**Backend:** Python 3.12+ and Django Framework 
-* [cite_start]**Database:** MySQL (Relational modeling and CRUD operations) 
-* [cite_start]**Environment:** Python Decouple (for .env management) and Git for version control 
+* **Backend:** Python 3.12+ and Django Framework 
+* **Database:** MySQL (Relational modeling and CRUD operations) 
+* **Environment:** Python Decouple (for .env management) and Git for version control 
 
 ## 🛠️ Key Features
-* [cite_start]**Full CRUD:** Create, Read, Update, and Delete products and categories[cite: 2, 4].
-* [cite_start]**OOP Architecture:** Extensive use of Django Models inheritance and Meta classes for clean code[cite: 4].
+* **Full CRUD:** Create, Read, Update, and Delete products and categories[cite: 2, 4].
+* **OOP Architecture:** Extensive use of Django Models inheritance and Meta classes for clean code[cite: 4].
 * **Database Migrations:** Structured schema evolution via Django Migrations.
 
 ## ⚙️ How to Run
